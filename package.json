@@ -1,0 +1,25 @@
+{
+  "name": "cobranca_recorrente",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "cobranca_santander/src/server",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "mssql": "^11.0.1",
+    "qs": "^6.13.1",
+    "set-interval-async": "^3.0.3",
+    "uuid": "^11.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
