@@ -15,9 +15,28 @@ export const gerarCobrancaCnpj = async () => {
         const pool = await db();
 
         try {
+
+            const dataFechamento = await pool
+                .request()
+                .query("SELECT * FROM [homol_hub]..[empresa] WHERE [uid_empresa] = 'NEW_115348968'")
+
+            const dia_fechamento = dataFechamento.recordset[0]?.dia_fechamento;
+
+            if(dataFechamento.recordset.length === 0) {
+                console.log("Sem dia de fechamento!");
+                return;
+            }
+
+            data.setDate(hoje + dia_fechamento);
+
+            const dia_vencimento = data.getDate();
+
+            console.log(`Dia de vencimento calculado: ${dia_vencimento}`);
+
+
             const result = await pool
                 .request()
-                .query(`SELECT * FROM [homol_hub_santander]..[cobranca] WHERE [recorrente] = 1 AND [dia_vencimento] = ${hoje} AND LEN([token]) = 32`);
+                .query(`SELECT * FROM [homol_hub_santander]..[cobranca] WHERE [recorrente] = 1 AND [dia_vencimento] = ${dia_vencimento} AND LEN([token_lead]) = 38`);
 
             if (result.recordset.length === 0){
                 console.log("Não há cobranças para realizar leads CNPJ");
@@ -27,6 +46,7 @@ export const gerarCobrancaCnpj = async () => {
             const token_lead = result.recordset.map(result => result.token_lead);
             const token_cadastro = result.recordset.map(result => result.token);
             const token_string = token_lead.map(token => `'${token}'`).join(', ');
+
 
             if (!token_string) {
                 console.log("Nenhum token válido encontrado.");
@@ -54,19 +74,30 @@ export const gerarCobrancaCnpj = async () => {
 
                 const token = uuidv4();
 
-                const response = await santander.novaCobrancaCnpj(accessToken, payer.data_vencimento, payer.valor_cobrado, payer.razao_social, payer.CNPJ, payer.logradouro, payer.bairro, payer.municipio, payer.uf, payer.cep, token);
+                const data = new Date();
+                const mes = data.getMonth() + 1;
+                const ano = data.getFullYear();
+
+                const dataTotal = `${dia_vencimento}/${mes.toString().padStart(2, '0')}/${ano}`;
+
+
+                const response = await santander.novaCobrancaCnpj(accessToken, payer.data_vencimento, payer.valor_cobrado, payer.razao_social, payer.CNPJ, payer.logradouro, payer.bairro, payer.municipio, payer.uf, payer.cep, token, dataTotal);
 
                 console.log(`Cobrança gerada para token_lead_cnpj: ${token_lead[i]}`, response);
 
                 if (response) {
+
+                    const [dia, mes, ano] = response.dueDate.split('/');
+                    const dueDate = `${ano}-${mes}-${dia}`;
+
                     await pool
                         .request()
                         .query(
                             `UPDATE [homol_hub_santander]..[cobranca]
-                             SET [due_date] = '${response.dueDate}',
+                             SET [due_date] = '${dueDate}',
                                  [qr_code_pix] = '${response.qrCodePix}',
                                  [qr_code_url] = '${response.qrCodeUrl}',
-                                 [digital_line] = '${response.digitableLine}'
+                                 [digital_line] = '${response.digitableLine}',
                                  [bankNumber] = '${response.bankNumber}'
                              WHERE [token] = '${token_cadastro[i]}'`
                         );

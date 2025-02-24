@@ -13,7 +13,7 @@ export const atualizacaoSituacao = async () => {
         try {
             const result = await pool
                 .request()
-                .query(`SELECT * FROM [homol_hub_santander]..[cobranca] WHERE [bankNumber] != ''`);
+                .query(`SELECT * FROM [homol_hub_santander]..[cobranca] WHERE [bankNumber] != '' AND [status] = 0`);
 
             const cobrancas = result.recordset.map(result => ({
                 token: result.token,

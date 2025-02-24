@@ -10,24 +10,45 @@ export const gerarCobranca = async () => {
         const santander = new Santander();
         await santander.getToken();
         const accessToken = santander.bearerToken;
-
         const data = new Date();
         const hoje = data.getDate();
         const pool = await db();
 
         try {
-            const result = await pool
+
+            const dataFechamento = await pool
                 .request()
-                .query(`SELECT *
-                        FROM [homol_hub_santander]..[cobranca]
-                        WHERE [recorrente] = 1 AND [dia_vencimento] = ${hoje}
-                          AND LEN([token]) != 32`);
+                .query("SELECT * FROM [homol_hub]..[empresa] WHERE [uid_empresa] = 'NEW_115348968'")
+
+            const dia_fechamento = dataFechamento.recordset[0]?.dia_fechamento;
+
+            if(dataFechamento.recordset.length === 0) {
+                console.log("Sem dia de fechamento!");
+                return;
+            }
+
+            data.setDate(hoje + dia_fechamento);
+
+            const dia_vencimento = data.getDate();
+
+            console.log(`Dia de vencimento calculado: ${dia_vencimento}`);
+
+
+                const result = await pool
+                    .request()
+                    .query(`SELECT *
+                FROM [homol_hub_santander]..[cobranca]
+                WHERE [recorrente] = 1
+                AND [dia_vencimento] = ${dia_vencimento}
+                AND LEN([token_lead]) = 36`);
+
 
 
             if (result.recordset.length === 0) {
                 console.log("Não há cobranças para realizar");
                 return;
             }
+
 
             const token_lead = result.recordset.map(result => result.token_lead);
             const token_cadastro = result.recordset.map(result => result.token);
@@ -61,16 +82,31 @@ export const gerarCobranca = async () => {
 
                     const token = uuidv4();
 
-                    const response = await santander.novaCobrancaCpf(accessToken, payer.data_vencimento, payer.valor_cobrado, payer.nome, payer.CPF, payer.logradouro, payer.bairro, payer.municipio, payer.uf, payer.cep, token);
+                    const data = new Date();
+                    const mes = data.getMonth() + 1;
+                    const ano = data.getFullYear();
+
+                    const dataTotal = `${dia_vencimento}/${mes.toString().padStart(2, '0')}/${ano}`;
+
+
+                    const response = await santander.novaCobrancaCpf(accessToken, payer.data_vencimento, payer.valor_cobrado, payer.nome, payer.CPF, payer.logradouro, payer.bairro, payer.municipio, payer.uf, payer.cep, token, dataTotal);
 
                     console.log(`Cobrança gerada para token_lead: ${token_lead[i]}`, response);
 
                     if (response) {
+
+                        const [dia, mes, ano] = response.dueDate.split('/');
+                        const dueDate = `${ano}-${mes}-${dia}`;
+
                         await pool
                             .request()
                             .query(
                                 `UPDATE [homol_hub_santander]..[cobranca]
-                                 SET [due_date] = '${response.dueDate}', [qr_code_pix] = '${response.qrCodePix}', [qr_code_url] = '${response.qrCodeUrl}', [digital_line] = '${response.digitableLine}', [bankNumber] = '${response.bankNumber}'
+                                 SET [due_date] = '${dueDate}',
+                                     [qr_code_pix] = '${response.qrCodePix}',
+                                     [qr_code_url] = '${response.qrCodeUrl}',
+                                     [digital_line] = '${response.digitableLine}',
+                                     [bankNumber] = '${response.bankNumber}'
                                  WHERE [token] = '${token_cadastro[i]}'`
                             );
 

@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cba2950-2105-40c2-89c3-dd2478a840f7" name="Changes" comment="" />
+    <list default="true" id="9cba2950-2105-40c2-89c3-dd2478a840f7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/cobranca_recorrente_CNPJ.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/cobranca_recorrente_CNPJ.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/status.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/status.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +24,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -29,26 +36,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Node.js.Santander.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.bloqueioAutomatico.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.cobranca_recorrente_CPF.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.teste.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.verificar_status_boleto].js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/BOREAL/Documents/Todos projetos/cobranca_santander&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PhpStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.Santander.js.executor": "Run",
+    "Node.js.bloqueioAutomatico.js.executor": "Run",
+    "Node.js.cobranca_recorrente_CPF.js.executor": "Run",
+    "Node.js.index.js.executor": "Run",
+    "Node.js.server.js.executor": "Run",
+    "Node.js.teste.js.executor": "Run",
+    "Node.js.verificar_status_boleto].js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/BOREAL/Documents/Todos projetos/cobranca_santander",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\BOREAL\Documents\cobranca_santander\src" />
@@ -78,6 +87,14 @@
       <workItem from="1737980962730" duration="17421000" />
       <workItem from="1738776855068" duration="4122000" />
       <workItem from="1738844528209" duration="22954000" />
+      <workItem from="1739189236203" duration="24617000" />
+      <workItem from="1739448007271" duration="29549000" />
+      <workItem from="1739535195765" duration="25052000" />
+      <workItem from="1739883942554" duration="4228000" />
+      <workItem from="1739888650208" duration="18412000" />
+      <workItem from="1739966716234" duration="23442000" />
+      <workItem from="1740053541565" duration="23091000" />
+      <workItem from="1740169512257" duration="1086000" />
     </task>
     <servers />
   </component>

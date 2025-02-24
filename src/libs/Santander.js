@@ -44,7 +44,7 @@ export default class Santander {
         }
     }
 
-    async novaCobrancaCpf (accessToken, data_vencimento, valor_cobrado, nome, cpf, logradouro, bairro,  municipio, uf, cep, token ){
+    async novaCobrancaCpf (accessToken, data_vencimento, valor_cobrado, nome, cpf, logradouro, bairro,  municipio, uf, cep, token, dataTotal ){
         const certPath =  process.env.CERT_PATH;
         const keyPath = process.env.KEY_PATH;
         const passphrase = process.env.PASSPHRASE;
@@ -71,7 +71,7 @@ export default class Santander {
                         nsuDate: new Date().toISOString(),
                         covenantCode: covenantCode,
                         bankNumber: bankNumber,
-                        dueDate: formattedDate,
+                        dueDate: dataTotal,
                         issueDate: new Date().toISOString(),
                         nominalValue: valor_cobrado,
                         payer: {
@@ -102,7 +102,7 @@ export default class Santander {
             }
         }
 
-        async novaCobrancaCnpj (accessToken, data_vencimento, valor_cobrado, razao_social, cnpj, logradouro, bairro,  municipio, uf, cep, token) {
+        async novaCobrancaCnpj (accessToken, data_vencimento, valor_cobrado, razao_social, cnpj, logradouro, bairro,  municipio, uf, cep, token, dataTotal) {
             const certPath =  process.env.CERT_PATH;
             const keyPath = process.env.KEY_PATH;
             const passphrase = process.env.PASSPHRASE;
@@ -129,7 +129,7 @@ export default class Santander {
                         nsuDate: new Date().toISOString(),
                         covenantCode: covenantCode,
                         bankNumber: bankNumber,
-                        dueDate: formattedDate,
+                        dueDate: dataTotal,
                         issueDate: new Date().toISOString(),
                         nominalValue: valor_cobrado,
                         payer: {
